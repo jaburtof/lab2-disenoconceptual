@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "text": "Solicitud de Credito",
+      "type": "text",
+      "id": "Field_0be6win"
+    },
+    {
+      "values": [
+        {
+          "label": "Hipotecario",
+          "value": "hipotecario"
+        },
+        {
+          "label": "Personal",
+          "value": "personal"
+        }
+      ],
+      "label": "Tipo de Credito",
+      "type": "radio",
+      "id": "Field_0ev6h48",
+      "key": "tipo"
+    }
+  ],
+  "type": "default",
+  "id": "form2"
+}

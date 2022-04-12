@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1hxvphs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="Process_0n02o4k" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0maf2cn</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_16ziwrx">
+      <bpmn:incoming>Flow_0924hmr</bpmn:incoming>
+      <bpmn:incoming>Flow_1bjwx4d</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0maf2cn" sourceRef="StartEvent_1" targetRef="registrarUsuario" />
+    <bpmn:sequenceFlow id="Flow_1x0pf0t" sourceRef="registrarUsuario" targetRef="registrarDatos" />
+    <bpmn:sequenceFlow id="Flow_1v3vu57" sourceRef="registrarDatos" targetRef="Gateway_0ecpjep" />
+    <bpmn:userTask id="registrarUsuario" name="Registro de Usuario" camunda:formKey="camunda-forms:/forms/form_1.form">
+      <bpmn:incoming>Flow_0maf2cn</bpmn:incoming>
+      <bpmn:outgoing>Flow_1x0pf0t</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="registrarDatos" name="Registro de Datos" camunda:formKey="camunda-forms:/forms/form_2.form">
+      <bpmn:incoming>Flow_1x0pf0t</bpmn:incoming>
+      <bpmn:outgoing>Flow_1v3vu57</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_0ecpjep">
+      <bpmn:incoming>Flow_1v3vu57</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wj59e4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0qdqx3c</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0wj59e4" name="Tipo hipotecario" sourceRef="Gateway_0ecpjep" targetRef="montoPrestamoHipotecario">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{tipo== "hipotecario"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0924hmr" sourceRef="montoPrestamoHipotecario" targetRef="Event_16ziwrx" />
+    <bpmn:sequenceFlow id="Flow_0qdqx3c" name="Tipo Personal" sourceRef="Gateway_0ecpjep" targetRef="montoPrestamoPersona">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{tipo== "personal"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1bjwx4d" sourceRef="montoPrestamoPersona" targetRef="Event_16ziwrx" />
+    <bpmn:userTask id="montoPrestamoHipotecario" name="Calcular monto préstamo hipotecario" camunda:formKey="camunda-forms:/forms/form_3.form">
+      <bpmn:incoming>Flow_0wj59e4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0924hmr</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="montoPrestamoPersona" name="Calcular Monto&#10;préstamo Personal" camunda:formKey="camunda-forms:/forms/form_4.form">
+      <bpmn:incoming>Flow_0qdqx3c</bpmn:incoming>
+      <bpmn:outgoing>Flow_1bjwx4d</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0n02o4k">
+      <bpmndi:BPMNEdge id="Flow_0maf2cn_di" bpmnElement="Flow_0maf2cn">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="250" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1x0pf0t_di" bpmnElement="Flow_1x0pf0t">
+        <di:waypoint x="350" y="117" />
+        <di:waypoint x="410" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1v3vu57_di" bpmnElement="Flow_1v3vu57">
+        <di:waypoint x="510" y="117" />
+        <di:waypoint x="555" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wj59e4_di" bpmnElement="Flow_0wj59e4">
+        <di:waypoint x="605" y="117" />
+        <di:waypoint x="710" y="117" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="619" y="99" width="77" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0924hmr_di" bpmnElement="Flow_0924hmr">
+        <di:waypoint x="810" y="117" />
+        <di:waypoint x="882" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qdqx3c_di" bpmnElement="Flow_0qdqx3c">
+        <di:waypoint x="580" y="142" />
+        <di:waypoint x="580" y="260" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="596" y="198" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bjwx4d_di" bpmnElement="Flow_1bjwx4d">
+        <di:waypoint x="630" y="300" />
+        <di:waypoint x="900" y="300" />
+        <di:waypoint x="900" y="135" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1qs2oyh_di" bpmnElement="registrarUsuario">
+        <dc:Bounds x="250" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1xm5kss_di" bpmnElement="registrarDatos">
+        <dc:Bounds x="410" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0ecpjep_di" bpmnElement="Gateway_0ecpjep" isMarkerVisible="true">
+        <dc:Bounds x="555" y="92" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_16ziwrx_di" bpmnElement="Event_16ziwrx">
+        <dc:Bounds x="882" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_02fmn9b_di" bpmnElement="montoPrestamoPersona">
+        <dc:Bounds x="530" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0xyn1vr_di" bpmnElement="montoPrestamoHipotecario">
+        <dc:Bounds x="710" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
